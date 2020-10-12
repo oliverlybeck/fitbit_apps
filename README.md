@@ -10,7 +10,7 @@ Check dependencies:
 4. `npx fitbit`
 
 Useful commands for fitbit-CLI:
-..* build
-..* install
-..* bi (build & install)
+* build
+* install
+* bi (build & install)
  
