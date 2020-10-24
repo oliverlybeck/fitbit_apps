@@ -1,17 +1,18 @@
 import document from "document";
 import * as messaging from "messaging";
+import { settingsStorage } from "settings";
 
-console.log("triggering watch app...");
 
-function triggerSensor(){
+function triggerSensor(msg){
+  console.log("triggering watch app...");
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-    console.log("sending get command to watch app")
+    console.log("Sending get command to watch app")
     messaging.peerSocket.send({
-    command: "get"
+    command: msg
   });
   }
   else {
-  console.log("Not ready to transfer data");
+    console.log("Not ready to transfer data");
   }
 };
 
@@ -19,11 +20,51 @@ function receivedMessage(data){
   console.log(`testing the contents: ${data}`);
 };
 
-messaging.peerSocket.addEventListener("open", (evt) => {
-  console.log("triggering sensor");
-  triggerSensor();
+//messaging.peerSocket.addEventListener("open", (evt) => {
+//  console.log("triggering sensor");
+//  triggerSensor();
+//});
+//setInterval(triggerSensor, 10000);
+
+// Action settings
+
+settingsStorage.addEventListener("change", (evt) => {
+  const key = evt.key;
+  const val = evt.newValue;
+  sendSensorSetting(key, val);
+})
+
+function sendSensorSetting(sensorKey, sensorOn) {
+  if (sensorKey == 'HR') {
+    if (sensorOn == 'true') {
+      triggerSensor('start_HR');
+      console.log("sending sensor key..")
+    }
+    else {
+      triggerSensor('stop_HR');
+    }
+  }
+}
+
+setTimeout(function() {
+  sendSensorSetting('HR', 'true');
+}, 10);
+
+// Receive data from app
+messaging.peerSocket.addEventListener("message", (evt) => {
+  if (evt.data) {
+    receivedMessage(evt.data);
+  }
+  else {
+    console.error("Error: Connection is not open");
+  }
 });
 
+
+
+
+
+//####################################
 /**
 // Set up API comms
 var API_KEY = "";

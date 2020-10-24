@@ -1,4 +1,5 @@
-registerSettingsPage(({ settings }) => (
+function testSettings() {
+  return (
   <Page>
     <Section
       title={
@@ -7,7 +8,18 @@ registerSettingsPage(({ settings }) => (
         </Text>
       }
     >
-      <Text>Hello world!</Text>
+      <Text>Choose which sensor you wish</Text>    
+      <Toggle
+          settingsKey="HR"
+          label="Heart Rate Monitor"
+        />
+      <Toggle
+          settingsKey="Barometer"
+          label="Barometer Monitor"
+        />
     </Section>
   </Page>
-));
+  );
+}
+
+registerSettingsPage(testSettings);
