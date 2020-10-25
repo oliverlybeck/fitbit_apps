@@ -10,11 +10,11 @@ function testSettings() {
     >
       <Text>Choose which sensor you wish</Text>    
       <Toggle
-          settingsKey="HR"
+          settingsKey="hr"
           label="Heart Rate Monitor"
         />
       <Toggle
-          settingsKey="Barometer"
+          settingsKey="bar"
           label="Barometer Monitor"
         />
     </Section>

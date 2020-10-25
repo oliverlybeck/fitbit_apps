@@ -1,6 +1,7 @@
 <svg>
-  <text id="bar" x="0" y="72%" class="large-value">42</text>
-  <text id="updated" x="0" y="92%" class="updated">now!</text>
+  <text id="bar" x="0" y="52%" class="large-value">---</text>
+  <text id="hr" x="0" y="72%" class="large-value">---</text>
+  <text id="updated" x="0" y="92%" class="updated">...</text>
   <rect id="myButton" x="259" y="32" width="10%" height="10%"
         fill="red" pointer-events="visible" />
 </svg>

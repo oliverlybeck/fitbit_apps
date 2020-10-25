@@ -2,9 +2,16 @@ import document from "document";
 import * as messaging from "messaging";
 import { settingsStorage } from "settings";
 
+var defaultSettings = {"hr": "true",
+                       "bar": "true" 
+                      }
 
-function triggerSensor(msg){
-  console.log("triggering watch app...");
+setTimeout(function() {
+  triggerSensors(JSON.stringify(defaultSettings));
+}, 50);
+
+function triggerSensors(msg){
+  console.log(`triggering watch app with message: ${msg}`);
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
     console.log("Sending get command to watch app")
     messaging.peerSocket.send({
@@ -20,37 +27,16 @@ function receivedMessage(data){
   console.log(`testing the contents: ${data}`);
 };
 
-//messaging.peerSocket.addEventListener("open", (evt) => {
-//  console.log("triggering sensor");
-//  triggerSensor();
-//});
-//setInterval(triggerSensor, 10000);
-
-// Action settings
-
+// Gets triggered when setting for sensor is toggled
 settingsStorage.addEventListener("change", (evt) => {
-  const key = evt.key;
-  const val = evt.newValue;
-  sendSensorSetting(key, val);
-})
+  var key = evt.key;
+  var val = evt.newValue;
+  var alterationJSON = `{"${key}": "${val}"}`;
+  console.log(alterationJSON);
+  triggerSensors(alterationJSON);
+});
 
-function sendSensorSetting(sensorKey, sensorOn) {
-  if (sensorKey == 'HR') {
-    if (sensorOn == 'true') {
-      triggerSensor('start_HR');
-      console.log("sending sensor key..")
-    }
-    else {
-      triggerSensor('stop_HR');
-    }
-  }
-}
-
-setTimeout(function() {
-  sendSensorSetting('HR', 'true');
-}, 10);
-
-// Receive data from app
+// Listens for data getting sent from app
 messaging.peerSocket.addEventListener("message", (evt) => {
   if (evt.data) {
     receivedMessage(evt.data);

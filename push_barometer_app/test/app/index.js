@@ -1,9 +1,4 @@
-import * as messaging from "messaging";
-import { Barometer } from "barometer";
-import document from "document";
-import { display } from "display";
-
-const sensors = [];
+//const sensors = [];
 /** 
 // The function that reads the barometer sensor's reading and then processes the value into a json format
 // Note: the sendBarometricData function needs to be withing the event handler, as the values do not get stored in the original variables
@@ -65,105 +60,51 @@ messaging.peerSocket.addEventListener("message", (evt) => {
  * Done
  **/
 
-let document = require("document");
-import { HeartRateSensor } from "heart-rate";
-import { Barometer } from "barometer";
-import { display } from "display";
-import { me } from "appbit";
 
-// Settings (and sensor selector)
-//settingsStorage.addEventListener("change", (evt) => {
-//  console.log(`key: ${evt.key}`);
-//})
+import { me } from "appbit";
+import * as messaging from "messaging";
+import * as sensorCtl from "./sensorControl";
+
+let document = require("document");
 
 // Fetch UI elements we will need to change
-let barLabel = document.getElementById("bar");
-let updatedLabel = document.getElementById("updated");
+//let updatedHrLabel = document.getElementById("updated");
 let myRect = document.getElementById("myButton");
-
-// Keep a timestamp of the last reading received. Start when the app is started.
-let lastValueTimestamp = Date.now();
-var sensor;
-var sensorVal;
-const sensorFlag;
-var updateDisplayInterval;
-
-
-// Initialize the UI with some values
-barLabel.text = "--";
-updatedLabel.text = "...";
-
-
-// This function takes a number of milliseconds and returns a string
-// such as "5min ago".
-function convertMsAgoToString(millisecondsAgo) {
-  if (millisecondsAgo < 120*1000) {
-    return Math.round(millisecondsAgo / 1000);
-  }
-  else if (millisecondsAgo < 60*60*1000) {
-    return Math.round(millisecondsAgo / (60*1000));
-  }
-  else {
-    return Math.round(millisecondsAgo / (60*60*1000))
-  }
-}
-
-// This function updates the label on the display that shows when data was last updated.
-function updateDisplay() {
-  if (display.on) {
-      if (sensorVal != sensor.heartRate) {
-        sensorVal = sensor.heartRate;
-        console.log(`${sensorVal}`);
-        lastValueTimestamp = Date.now();
-      }
-      barLabel.text = sensorVal;
-      updatedLabel.text = convertMsAgoToString(Date.now() - lastValueTimestamp);
-  } else {
-    sensor.stop();
-  }
-}
 
 myRect.addEventListener("click", (evt) => {
   console.log("Terminating app");
   me.exit();
 })
 
+/**
 display.addEventListener("change", () => {
-  display.on ? sensor.start() : sensor.stop();
+  display.on ? hrSensor.start() : hrSensor.stop();
   if (display.on != 'True') {
     me.exit();
   } 
 })
+*/
 
 // Begin monitoring the sensor
 messaging.peerSocket.addEventListener("message", (evt) => {
   if (evt.data) {
-    if (evt.data.command == "start_HR") {
-      if (sensor === undefined) {
-        sensor = new HeartRateSensor();
+    var jsonSettings = JSON.parse(evt.data.command);
+    console.log("testing that app gets to loop thingy")
+    for(var sensorname in jsonSettings){
+      var sensorOn = jsonSettings[sensorname];
+      console.log(`${sensorname}: ${jsonSettings[sensorname]}`);
+      if (sensorname == "hr"){
+        sensorCtl.hrControl(sensorOn);
       }
-      sensor.start();
-      sensorFlag = "true";
-      updateDisplayInterval = setInterval(updateDisplay, 1000);
-      
-      setTimeout(function() {
-        sensorReading();
-      }, 50);
-    }
-    else if (evt.data.command == "stop_HR") {
-      if (sensor !== undefined) {
-        sensor.stop();
+      else if (sensorname == "bar"){
+        sensorCtl.barControl(sensorOn);
       }
-      sensorFlag = "false";
-      clearInterval(updateDisplayInterval);
     }
   }
   else {
-    console.error("Error: Connection is not open");
-    }
+   console.error("Error: Connection is not open");
+  }
 });
-
-
 
 function sensorReading() {
   const Data =  "none";
@@ -174,32 +115,12 @@ function sensorReading() {
   sendDataToCompanion(Data);
 }
 
-
-
 // Send sensor data to companion app
 function sendDataToCompanion(data) {
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
     messaging.peerSocket.send(data);
   }
 }
-
-// Create a new instance of the HeartRateSensor object
-
-// Declare an event handler that will be called every time a new HR value is received.
-//sensor.onreading = function() {
-  // Peek the current sensor values
-//  barLabel.text = (bar.pressure/1000).toFixed(2) + "kPa";
-//  barLabel.text = sensor.heartRate;
-//  lastValueTimestamp = Date.now();
-//}
-
-
-
-
-// And update the display every second
-
-//setInterval(updateDisplay, 1000);
-
 
 
 
