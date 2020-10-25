@@ -2,8 +2,15 @@ import document from "document";
 import * as messaging from "messaging";
 import { settingsStorage } from "settings";
 
-var defaultSettings = {"hr": "true",
-                       "bar": "true" 
+settingsStorage.setItem("hr", "true");
+settingsStorage.setItem("bar", "true");
+
+let hrSettingsVal = settingsStorage.getItem("hr");
+let barSettingsVal = settingsStorage.getItem("bar");
+
+
+var defaultSettings = {"hr": hrSettingsVal,
+                       "bar": barSettingsVal 
                       }
 
 setTimeout(function() {

@@ -9,8 +9,8 @@ var barSensor;
 var sensorVal;
 var updateDisplayInterval;
 let document = require("document");
-let barLabel = document.getElementById("bar");
-let hrLabel = document.getElementById("hr");
+let barLabel = document.getElementById("barReading");
+let hrLabel = document.getElementById("hrReading");
 let updatedHrLabel = document.getElementById("updated");
 // Keep a timestamp of the last reading received. Start when the app is started.
 let lastValueTimestamp = Date.now();
@@ -42,7 +42,7 @@ export function barControl(sensorBool) {
         barSensor = new Barometer();
     }
     barSensor.start();
-        updateDisplayInterval = setInterval(updateDisplay, 1000);
+    updateDisplayInterval = setInterval(updateDisplay, 10000);
     }
     else {
     if (barSensor !== undefined) {
@@ -59,8 +59,8 @@ function updateDisplay() {
         sensorVal = hrSensor.heartRate;
         lastValueTimestamp = Date.now();
         }
-        barLabel.text = (barSensor.pressure/1000).toFixed(2) + "kPa";
-        hrLabel.text = sensorVal + "BPM";
+        barLabel.text = (barSensor.pressure/1000).toFixed(2);
+        hrLabel.text = sensorVal;
         updatedHrLabel.text = convertMsAgoToString(Date.now() - lastValueTimestamp);
     } else {
     hrSensor.stop();

@@ -5,6 +5,7 @@ svg {
 .large-value {
   font-family: Seville-Book;
   font-size: 60;
+  text-anchor: start;
   text-length: 32;
   fill: #F80070;
   width: 100%;
@@ -13,6 +14,15 @@ svg {
 
 .updated {
   font-family: Seville-Book;
+  text-anchor: start;
   font-size: 30;
   fill: #ffffff;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
 }

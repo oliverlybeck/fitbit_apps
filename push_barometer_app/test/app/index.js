@@ -63,7 +63,7 @@ messaging.peerSocket.addEventListener("message", (evt) => {
 
 import { me } from "appbit";
 import * as messaging from "messaging";
-import * as sensorCtl from "./sensorControl";
+import * as sensorCtl from "./appGui";
 
 let document = require("document");
 
@@ -84,14 +84,19 @@ display.addEventListener("change", () => {
   } 
 })
 */
-
+var tally;
 // Begin monitoring the sensor
 messaging.peerSocket.addEventListener("message", (evt) => {
   if (evt.data) {
     var jsonSettings = JSON.parse(evt.data.command);
-    console.log("testing that app gets to loop thingy")
+    if (tally == undefined){
+      var maxLength = Object.keys(jsonSettings).length;
+      tally = 0;
+    }
+
     for(var sensorname in jsonSettings){
       var sensorOn = jsonSettings[sensorname];
+      displayedSensors(sensorname, sensorOn);
       console.log(`${sensorname}: ${jsonSettings[sensorname]}`);
       if (sensorname == "hr"){
         sensorCtl.hrControl(sensorOn);
@@ -100,13 +105,35 @@ messaging.peerSocket.addEventListener("message", (evt) => {
         sensorCtl.barControl(sensorOn);
       }
     }
+    if (tally > maxLength) {
+      tally = maxLength;
+    }
   }
   else {
    console.error("Error: Connection is not open");
   }
 });
 
-function sensorReading() {
+function displayedSensors(key, setting) {
+  let ele = document.getElementById(key);
+  if (setting == 'false'){
+    ele.class = "invisible"
+    tally -= 1;
+    let remainingVisibles = document.getElementsByClassName("visible");
+    var count = 0;
+    remainingVisibles.forEach((element) => {
+      element.y = 229 - count * 60;
+      count += 1;
+    })
+  }
+  else {
+    ele.class = "visible"
+    ele.y = 229 - tally * 60;
+    tally += 1;
+  }
+}
+
+function sendSensorReading() {
   const Data =  "none";
   Data = JSON.stringify({
     hr: sensor.heartRate,
