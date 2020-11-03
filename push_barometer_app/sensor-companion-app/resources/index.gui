@@ -1,0 +1,19 @@
+<svg>
+  <defs>
+    <symbol id="barSection" height="60" width="100%">
+      <text id="barReading" class="large-value" x="0" y="0">---</text>
+      <text id="barUnit" class="updated" x="60%" y="0">kPa</text>
+    </symbol>
+
+    <symbol id="hrSection">
+      <text id="hrReading" class="large-value" x="0" y="0">---</text>
+      <text id="hrUnit" class="updated" x="30%" y="0" >bpm</text>
+    </symbol>
+  </defs>
+  <use id="hr" href="#hrSection" class="visible" x="0" y="72%" />
+  <use id="bar" href="#barSection" class="visible" x="0" y="52%" />
+
+  <text id="updated" x="0" y="92%" class="updated">...</text>
+  <rect id="myButton" x="259" y="32" width="10%" height="10%"
+        fill="red" pointer-events="visible" />
+</svg>
