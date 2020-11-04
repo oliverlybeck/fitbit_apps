@@ -4,7 +4,7 @@ svg {
 
 .large-value {
   font-family: Seville-Book;
-  font-size: 60;
+  font-size: 25;
   text-anchor: start;
   text-length: 32;
   fill: #F80070;
@@ -12,10 +12,17 @@ svg {
   height: 100%;
 }
 
-.updated {
+.units {
   font-family: Seville-Book;
   text-anchor: start;
-  font-size: 30;
+  font-size: 15;
+  fill: #ffffff;
+}
+
+.timer {
+  font-family: Seville-Book;
+  text-anchor: start;
+  font-size: 25;
   fill: #ffffff;
 }
 
@@ -26,3 +33,11 @@ svg {
 .visible {
   visibility: visible;
 }
+
+.questionaire {
+  font-family: Seville-Book;
+  text-anchor: middle;
+  font-size: 25;
+  fill: #ffffff;
+}
+

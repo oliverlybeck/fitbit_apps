@@ -9,16 +9,21 @@ var barSensor;
 var sensorVal;
 var updateDisplayInterval;
 let document = require("document");
+
 let barLabel = document.getElementById("barReading");
 let hrLabel = document.getElementById("hrReading");
-let updatedHrLabel = document.getElementById("updated");
+
+let barUnit = document.getElementById("barUnit");
+let hrUnit = document.getElementById("hrUnit");
+
+let timer = document.getElementById("timer");
 // Keep a timestamp of the last reading received. Start when the app is started.
 let lastValueTimestamp = Date.now();
 
 // Initialize the UI with some values
 barLabel.text = "--";
 hrLabel.text = "--";
-updatedHrLabel.text = "...";
+timer.text = "...";
 
 export function hrControl(sensorBool) {
     if (sensorBool == "true") {
@@ -61,9 +66,41 @@ function updateDisplay() {
         }
         barLabel.text = (barSensor.pressure/1000).toFixed(2);
         hrLabel.text = sensorVal;
-        updatedHrLabel.text = convertMsAgoToString(Date.now() - lastValueTimestamp);
+        dynamicGUIBarUnits(barLabel.text.length);
+        dynamicGUIHrUnits(hrLabel.text.length);
+        timer.text = convertMsAgoToString(Date.now() - lastValueTimestamp);
+        dynamicGUITimer(timer.text.length);
     } else {
     hrSensor.stop();
     }
 }
 
+function dynamicGUIBarUnits(strLen) {
+    if (strLen > 6) {
+        barUnit.x = 73;
+    }
+    else {
+        barUnit = 83;
+    }
+}
+
+function dynamicGUIHrUnits(strLen) {
+    if (strLen > 2) {
+        hrUnit.x = 40;
+    }
+    else {
+        hrUnit.x = 30;
+    }
+}
+
+function dynamicGUITimer(strLen) {
+    if (strLen == 1) {
+        timer.x = 281;
+    }
+    else if (strLen > 2) {
+        timer.x = 261;
+    }
+    else {
+        timer.x = 271;
+    }
+}

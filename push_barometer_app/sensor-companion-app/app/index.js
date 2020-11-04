@@ -69,9 +69,9 @@ let document = require("document");
 
 // Fetch UI elements we will need to change
 //let updatedHrLabel = document.getElementById("updated");
-let myRect = document.getElementById("myButton");
+let exit = document.getElementById("exitButton");
 
-myRect.addEventListener("click", (evt) => {
+exit.addEventListener("click", (evt) => {
   console.log("Terminating app");
   me.exit();
 })
@@ -122,13 +122,13 @@ function displayedSensors(key, setting) {
     let remainingVisibles = document.getElementsByClassName("visible");
     var count = 0;
     remainingVisibles.forEach((element) => {
-      element.y = 229 - count * 60;
+      element.y = 25 + count * 25;
       count += 1;
     })
   }
   else {
     ele.class = "visible"
-    ele.y = 229 - tally * 60;
+    ele.y = 25 + tally * 25;
     tally += 1;
   }
 }
