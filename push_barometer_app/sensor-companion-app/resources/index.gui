@@ -4,6 +4,7 @@
   gradient-x1="0" gradient-y1="50"
   gradient-x2="0" gradient-y2="100%-50"
   gradient-color1="blue" gradient-color2="black" />
+  
   <defs>
     <symbol id="barSection" height="10" width="60%">
       <text id="barReading" class="large-value" x="0" y="0">---</text>
@@ -14,19 +15,21 @@
       <text id="hrReading" class="large-value" x="0" y="0">---</text>
       <text id="hrUnit" class="units" x="30" y="0" >bpm</text>
     </symbol>
-
   </defs>
 
   <use id="hr" href="#hrSection" class="visible" x="1" y="25" />
   <use id="bar" href="#barSection" class="visible" x="1" y="50" />
-
+  <!--
+  <rect id="yesButton" x="30%" y="75%" width="32" height="32" fill="green" pointer-events="visible"/>
+  <rect id="noButton"  x="70%" y="75%" width="32" height="32" fill="red" pointer-events="visible"/>
+  -->
   <text id="timer" x="281" y="25" class="timer">...</text>
   <arc id="exitButton" x="259" y="259" width="10%" height="10%"
         fill="red" pointer-events="visible"  arc-width="100%" start-angle="0" sweep-angle="360" opacity="0.5"/>
   
-  <text id="questionairePrompt" class="questionaire" x="50%" y="50%">Ready for questionaire?</text>
+  <text id="questionnaire" class="form" x="50%" y="50%">Ready for questionaire?</text>
 
-  <text id="yesButton" class="questionaire" x="30%" y="75%"> Yes </text>
-  <text id="noButton" class="questionaire" x="70%" y="75%"> No </text>
+  <text id="yesButton" class="form" x="30%" y="75%" pointer-events="visible"> Yes </text>
+  <text id="noButton" class="form" x="70%" y="75%" pointer-events="visible"> No </text>
 
 </svg>

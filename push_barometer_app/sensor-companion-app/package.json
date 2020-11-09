@@ -10,7 +10,7 @@
   "fitbit": {
     "appUUID": "967d2546-2cfb-440f-97ec-2f016537322f",
     "appType": "app",
-    "appDisplayName": "Test",
+    "appDisplayName": "Log Experienced Data",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
     "requestedPermissions": [

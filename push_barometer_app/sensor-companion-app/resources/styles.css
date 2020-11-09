@@ -34,10 +34,21 @@ svg {
   visibility: visible;
 }
 
-.questionaire {
+.form {
   font-family: Seville-Book;
   text-anchor: middle;
   font-size: 25;
   fill: #ffffff;
 }
 
+.application-fill           { fill: fb-pink; }
+.foreground-fill            { fill: fb-white; }
+.background-fill            { fill: fb-black; }
+
+#button-1 #text {
+  text-buffer: "NO";
+}
+
+#button-2 #text {
+  text-buffer: "YES";
+}

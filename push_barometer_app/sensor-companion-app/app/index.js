@@ -64,13 +64,44 @@ messaging.peerSocket.addEventListener("message", (evt) => {
 import { me } from "appbit";
 import * as messaging from "messaging";
 import * as sensorCtl from "./appGui";
+import * as questionnaireCtl from "./textSequence";
+
+//var test = fs.listDir(".");
+//console.log("files in this dir: " + `${test}`);
 
 let document = require("document");
-
-// Fetch UI elements we will need to change
-//let updatedHrLabel = document.getElementById("updated");
 let exit = document.getElementById("exitButton");
+let yes = document.getElementById("yesButton");
+let no = document.getElementById("noButton");
 
+
+var questionnaireCounter = 0;
+// Initialise JSON file for questionnaire
+
+
+yes.addEventListener("click", (evt) => {
+    if (questionnaireCounter == 0) {
+      questionnaireCtl.logSensorData("yes");
+    }
+    else {
+      questionnaireCtl.questionnaireResult("yes", questionnaireCounter);
+    }
+    questionnaireCounter += 1;
+})
+
+no.addEventListener("click", (evt) => {
+  if (questionnaireCounter == 0) {
+    questionnaireCounter = "Exit";
+    questionnaireCtl.questionnaireResult("no", questionnaireCounter);
+    console.log("Exiting questionnaire")
+  }
+    else {
+      questionnaireCtl.questionnaireResult("no", questionnaireCounter);
+      questionnaireCounter += 1;
+    }
+})
+
+// Exit the app
 exit.addEventListener("click", (evt) => {
   console.log("Terminating app");
   me.exit();
