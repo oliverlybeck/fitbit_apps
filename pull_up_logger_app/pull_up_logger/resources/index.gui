@@ -1,6 +1,6 @@
 <svg>
   <rect id="background" />
-  <text id="timer" class="timer" x="205" y="25" width="100%" class="timer">...</text>
+  <text id="timer" class="timer" x="297" y="25" width="100%" class="timer">...</text>
   <arc id="exitButton" x="259" y="259" width="10%" height="10%"
         fill="red" pointer-events="visible"  arc-width="100%" start-angle="0" sweep-angle="360" opacity="0.5"/>
 </svg>

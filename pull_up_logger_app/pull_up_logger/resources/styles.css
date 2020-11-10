@@ -14,7 +14,7 @@
 
 .timer {
   font-family: Seville-Book;
-  text-anchor: start;
+  text-anchor: end;
   font-size: 25;
   fill: #1b151556;
   text-length: 100;
