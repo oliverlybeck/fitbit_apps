@@ -1,6 +1,16 @@
 <svg>
+  <defs>
+    <symbol id="tumblerConstructor" height="50%" width="33%" pointer-events="visible" fill="red">
+      <text id="counterTumblerFaderTop" class="tumblerNumbers" opacity="0.5" x="0" y="0"></text>
+      <text id="counterTumblerFaderBottom" class="tumblerNumbers" opacity="0.5" x="0" y="46">1</text>
+      <text id="counterTumbler" class="tumblerNumbers" x="0" y="23">0</text>
+    </symbol>
+  </defs>
+
   <rect id="background" />
   <text id="timer" class="timer" x="297" y="25" width="100%" class="timer">...</text>
   <arc id="exitButton" x="259" y="259" width="10%" height="10%"
         fill="red" pointer-events="visible"  arc-width="100%" start-angle="0" sweep-angle="360" opacity="0.5"/>
+  <use id="tumbler" href="#tumblerConstructor" x="50" y="150"/>
+  
 </svg>

@@ -19,3 +19,12 @@
   fill: #1b151556;
   text-length: 100;
 }
+
+
+.tumblerNumbers {
+  font-family: System-Regular;
+  font-size: 30;
+  text-anchor: end;
+  fill: black;
+  text-length: 100;
+}
