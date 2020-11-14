@@ -4,7 +4,7 @@ import * as messaging from "messaging";
 let document = require("document");
 let timer = document.getElementById("timer");
 let exit = document.getElementById("exitButton");
-
+let submit = document.getElementById("submit");
 var startTime = Date.now()
 
 // Set tracked variables for displayed timer hh:mi:ss format
@@ -18,16 +18,17 @@ function converMsAgoToString(msago) {
 
 function updateDisplay() {
     var currTime = converMsAgoToString(Date.now() - startTime);
+    // Handle Minutes
     var minutesOverSeconds = currTime % 60;
+    if (minutesOverSeconds == 0) {
+        countMins = currTime / 60;
+    }
+    // Handle Hours
     var hoursOverSeconds = currTime % 3600;
     if (hoursOverSeconds == 0) {
-        countHours = +1;
+        countHours = currTime / 3600;
     }
-    
-    if (minutesOverSeconds == 0) {
-        countMins = +1;
-    }
-    
+
     // Maintain 00:00:00 format
     if (minutesOverSeconds <= 9 && countMins <= 9) {
         displayedTime = `0${countHours}:0${countMins}:0${minutesOverSeconds}`;
@@ -36,9 +37,14 @@ function updateDisplay() {
     } else {
         displayedTime = `0${countHours}:${countMins}:${minutesOverSeconds}`;
     }
-
     timer.text = displayedTime;
-    //dynamicGUITimer(timer.text.length);
+
+
+    /** DEBUGGING 
+    console.log(`${displayedTime}, ${currTime}`);
+    console.log(countMins);
+    console.log(minutesOverSeconds);
+    */
 }
 
 
@@ -75,6 +81,10 @@ exit.addEventListener("click", (evt) => {
     me.exit();
   })
 
+submit.addEventListener("click", (evt) => {
+    console.log(`SUBMIT THIS VALUE: ${tumblerMain.text}`);
+})
+
 var tumbler = document.getElementById("tumbler");
 let dragBox = document.getElementById("dragBox");
 let tumblerTop = document.getElementById("counterTumblerFaderTop");
@@ -89,17 +99,19 @@ tumbler.onmousedown = function(evt) {
     y = evt.screenY;
     x = evt.screenX;
     prevValue = tumblerMain.text;
+
+    /** DEBUGGING 
     console.log(`x:${x}, y:${y}`);
-    console.log(`Prev Value=${Number(prevValue) + 1}`);
+    console.log(`Prev Value=${Number(prevValue)}`);
+    */
 }
 
 tumbler.onmouseup = function(evt) {
     let yMove = evt.screenY-y;
     let xMove = evt.screenX-x;
-    console.log(`delta y: ${evt.screenY} - ${y}`);
-    console.log(`= ${yMove}`);
-    //swipe up
-    if (yMove < -20) {
+
+    //swipe up -> larger numbers
+    if (yMove < -35) {
         tumblerMain.text = Number(prevValue) + 2;
         tumblerTop.text = Number(prevValue) + 1;
         tumblerBottom.text = Number(prevValue) + 3;  
@@ -110,18 +122,30 @@ tumbler.onmouseup = function(evt) {
         tumblerBottom.text = Number(prevValue) + 2;
     };
 
-    //swipe down
-    if (yMove > 0) {
-        if (prevValue > 2) {
+    //swipe down -> smaller numbers
+    if (yMove > 35) {
+        if (prevValue < 3) {
+            tumblerTop.text = "";
+            tumblerMain.text = Number(prevValue) - 2;
+            tumblerBottom.text = Number(prevValue) - 1;
+        }
+        else {
+            tumblerTop.text = Number(prevValue) - 3;
+            tumblerMain.text = Number(prevValue) - 2;
+            tumblerBottom.text = Number(prevValue) - 1;
+        }
+    }
+    else if (yMove > 0) {
+        if (prevValue <= 1) {
+            tumblerTop.text = "";
+            tumblerMain.text = 0;
+            tumblerBottom.text = 1; 
+        }
+        else {
             tumblerTop.text = Number(prevValue) - 2;
             tumblerMain.text = Number(prevValue) - 1;
             tumblerBottom.text = Number(prevValue);
-        }
-        else if (prevValue = 1) {
-            tumblerTop.text = "";
-            tumblerMain.text = Number(prevValue) - 1;
-            tumblerBottom.text = Number(prevValue);
-        }
+        } 
     };
 
     //swipe left  
@@ -133,4 +157,9 @@ tumbler.onmouseup = function(evt) {
     if (xMove> 60) {
 
     }; 
+
+    /** DEBUGGING 
+    console.log(`delta y: ${evt.screenY} - ${y}`);
+    console.log(`= ${yMove}`);
+    */
 }

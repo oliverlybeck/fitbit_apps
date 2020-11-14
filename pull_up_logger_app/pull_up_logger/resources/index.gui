@@ -2,8 +2,12 @@
   <defs>
     <symbol id="tumblerConstructor" height="50%" width="33%" pointer-events="visible" fill="red">
       <text id="counterTumblerFaderTop" class="tumblerNumbers" opacity="0.5" x="0" y="0"></text>
-      <text id="counterTumblerFaderBottom" class="tumblerNumbers" opacity="0.5" x="0" y="46">1</text>
-      <text id="counterTumbler" class="tumblerNumbers" x="0" y="23">0</text>
+      <text id="counterTumblerFaderBottom" class="tumblerNumbers" opacity="0.5" x="0" y="80">1</text>
+      <text id="counterTumbler" class="tumblerNumbers" x="0" y="40">0</text>
+    </symbol>
+    <symbol id="submitButton" height="30%" width="48%">
+      <rect id="submitFrame" fill="red" x="0" y="0" width="100%" height="100%" />
+      <text id="submitText" class="defaultText" x="0" y="50%">Submit</text>
     </symbol>
   </defs>
 
@@ -11,6 +15,8 @@
   <text id="timer" class="timer" x="297" y="25" width="100%" class="timer">...</text>
   <arc id="exitButton" x="259" y="259" width="10%" height="10%"
         fill="red" pointer-events="visible"  arc-width="100%" start-angle="0" sweep-angle="360" opacity="0.5"/>
-  <use id="tumbler" href="#tumblerConstructor" x="50" y="150"/>
+
+  <use id="tumbler" href="#tumblerConstructor" x="75" y="150"/>
+  <use id="submit" href="#submitButton" x="120" y="185" pointer-events="visible" />
   
 </svg>
