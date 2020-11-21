@@ -29,12 +29,11 @@ try {
   console.log(e);
 }
 
-export function logSensorData(bool) {
+export function logSensorData() {
   questionnaire.text = "Sensor data and time is logged!";
   // log the sensor readings and time
 
   const timeOfMeasurement = getCurrentTime();
-  questionnaireJSON.commenceQuestionnaire = bool;
   questionnaireJSON.pressure = barLabel.text + " " + barUnit.text;
   questionnaireJSON.hr_avg = hrLabel.text + " " + hrUnit.text;
   questionnaireJSON.time = timeOfMeasurement;
@@ -42,7 +41,6 @@ export function logSensorData(bool) {
 }
 
 export function questionnaireResult(bool, counter) {
-  console.log(`${bool}` + " " + `${counter}`);
   switch (counter) {
     case 1:
         questionnaireJSON.tired = bool;
@@ -51,10 +49,10 @@ export function questionnaireResult(bool, counter) {
     case 2:
         questionnaireJSON.workout = bool;
         hideButtons();
-        console.log(JSON.stringify(questionnaireJSON));
-        break;
+        //console.log(JSON.stringify(questionnaireJSON));
+        return questionnaireJSON;
     default:
-        hideButtons();
+        logSensorData();
         break;
   }
 }
@@ -64,3 +62,4 @@ function hideButtons() {
     yes.class = "invisible";
     no.class = "invisible";
 }
+

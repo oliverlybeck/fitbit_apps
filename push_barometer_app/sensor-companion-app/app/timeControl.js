@@ -16,6 +16,7 @@ export function convertMsAgoToString(millisecondsAgo) {
 }
 
 export function getCurrentTime() {
+    // Desired time format: "YYYY-MM-DD hh24:mi:ss"
     let currentTime = new Date();
     let date = ("0" + currentTime.getDate()).slice(-2);
     let month = ("0" + (currentTime.getMonth() + 1)).slice(-2);

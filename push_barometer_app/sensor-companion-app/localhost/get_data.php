@@ -8,9 +8,9 @@
 		$decoded = json_decode($content, true);
 
 	if(! is_array($decoded)) {
-		$output = "data appended" . PHP_EOL;
-		fwrite($log, $output);
+		$output = " " . PHP_EOL;
 		fwrite($log, $decoded);
+		fwrite($log, $output);
 	} else {
 		$error = "ERROR, bad json or something" . PHP_EOL;
 		fwrite($log, $error);

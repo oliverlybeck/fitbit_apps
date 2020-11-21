@@ -1,3 +1,6 @@
 node_modules
 build
 VScode-workspace.code-workspace
+tsconfig.json
+package.json
+package-lock.json
