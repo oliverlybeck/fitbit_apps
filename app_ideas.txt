@@ -1,0 +1,17 @@
+## Fitbit App ideas:
+
+- Sensor logger with binary general health logger (Yes/No)
+	- Collect specified sensory at defined intervals
+	- Prompt a questionaire on the watch to ask about general well-being for the day:
+		- Are you tired?
+		- Have you worked out today?
+			- (if yes), what type of workout is it > branch out to specifics
+		- Have you eaten since the last questionaire?
+			- (if yes), was it a proper meal or a snack?
+
+- Google Maps integration:
+	- On fitbit app set the destination where you want to go
+	- Google maps downloads the map (zoomed in) and stores it on the fitbit watch
+	- watch references the location of the map and gives you directions
+		- One buzz to change direction
+		- Two sharp buzzes to tell you you're off course

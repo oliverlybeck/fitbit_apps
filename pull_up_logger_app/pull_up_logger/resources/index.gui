@@ -15,8 +15,11 @@
   <text id="timer" class="timer" x="297" y="25" width="100%" class="timer">...</text>
   <arc id="exitButton" x="259" y="259" width="10%" height="10%"
         fill="red" pointer-events="visible"  arc-width="100%" start-angle="0" sweep-angle="360" opacity="0.5"/>
-
+  <text id="total" class="defaultText" x="5%" y="5%">0</text>
   <use id="tumbler" href="#tumblerConstructor" x="75" y="150"/>
   <use id="submit" href="#submitButton" x="120" y="185" pointer-events="visible" />
-  
+  <g id="someList">
+    <text>Blah</text>
+  </g>
+
 </svg>
